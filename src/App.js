@@ -10,10 +10,8 @@ class App extends PureComponent {
   };
 
   handleChange = e => {
-    this.setState({ search: e.target.value, loading: true });
-    if(e.target.value.length > 0) {
-      _debounce(this.makeRequest, 500)(e.target.value);
-    }
+    this.setState({ search: e.target.value, loading: true, data: [] });
+    _debounce(this.makeRequest, 200)(e.target.value);
   };
 
   makeRequest = async (search) => {
@@ -28,10 +26,6 @@ class App extends PureComponent {
 
   render() {
     const { data, loading } = this.state;
-
-    if(loading && data.length) {
-      return <p>Loading...</p>
-    }
     
     return (
       <div className="App">

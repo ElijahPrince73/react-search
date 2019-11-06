@@ -12,15 +12,15 @@ class App extends PureComponent {
   handleChange = e => {
     this.setState({ search: e.target.value, loading: true });
     if(e.target.value.length > 0) {
-      _debounce(this.makeRequest, 500)();
+      _debounce(this.makeRequest, 500)(e.target.value);
     }
   };
 
-  makeRequest = async () => {
+  makeRequest = async (search) => {
     const res = await fetch(
-      `https://mock-autocomplete.herokuapp.com/autocomplete?q=${this.state.search}`
+      `https://mock-autocomplete.herokuapp.com/autocomplete?q=${search}`
     );
-å
+
     const { data } = await res.json();
     
     this.setState({ data, loading: false });

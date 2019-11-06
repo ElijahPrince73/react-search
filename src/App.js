@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { PureComponent } from 'react';
+import _debounce from 'lodash.debounce'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends PureComponent {
+  state = {
+    search: "",
+    loading: false,
+    data: []
+  };
+
+  handleChange = e => {
+    this.setState({ search: e.target.value, loading: true });
+    if(e.target.value.length > 0) {
+      _debounce(this.makeRequest, 500)();
+    }
+  };
+
+  makeRequest = async () => {
+    const res = await fetch(
+      `https://mock-autocomplete.herokuapp.com/autocomplete?q=${this.state.search}`
+    );
+å
+    const { data } = await res.json();
+    
+    this.setState({ data, loading: false });
+  };
+
+  render() {
+    const { data, loading } = this.state;
+
+    if(loading && data.length) {
+      return <p>Loading...</p>
+    }
+    
+    return (
+      <div className="App">
+        <header className="App-header">
+          <p>Word Search</p>
+          <input
+            type="text"
+            name="search"
+            value={this.state.search}
+            onChange={this.handleChange}
+          />
+          {data.length
+            ? data.map((word, i) => {
+                return <p key={i}>{word}</p>;
+              })
+            : null}
+
+          {loading ? <p>Loading...</p> : null}
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;

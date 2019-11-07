@@ -1,5 +1,5 @@
 body {
-  background-color: #282c34;
+  background-color: rgb(151, 153, 199);
 }
 
 .App-container {
@@ -13,25 +13,35 @@ input {
   width: 400px;
   height: 30px;
   font-size: 16px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   border: 1px solid white;
   background: white;
-}
-
-p {
-  color: white;
+  color: gray;
 }
 
 .search-result-container {
+  margin-top: 10px;
   width: 413px;
   margin:auto;
+  margin-top: 5px;
   background: white;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .search-result {
   padding: 10px 10px;
   text-align: left;
-  color: black;
+  color: gray;;
+}
+
+.search-result:hover {
+  background: #F5F6FF;
+  color: #959BCE;
+}
+
+.search-result:hover:last-child {
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }

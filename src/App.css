@@ -18,6 +18,7 @@ input {
   border: 1px solid white;
   background: white;
   color: gray;
+  outline: none;
 }
 
 .search-result-container {

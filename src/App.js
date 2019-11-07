@@ -22,7 +22,7 @@ class App extends PureComponent {
     const { data } = await res.json();
 
     this.setState({ data, loading: false });
-  }, 500);
+  }, 300);
 
 
   render() {

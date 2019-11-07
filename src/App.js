@@ -22,30 +22,43 @@ class App extends PureComponent {
     const { data } = await res.json();
 
     this.setState({ data, loading: false });
-  }, 300);
+  }, 500);
 
+  renderResults = () => {
+    const { data } = this.state;
+
+    return (
+      <div className="search-result-container">
+        {data.length
+          ? data.map((word, i) => {
+              return (
+                <div className="search-result" key={i}>
+                  {word}
+                </div>
+              );
+            })
+          : null}
+      </div>
+    );
+  }
 
   render() {
-    const { data, loading } = this.state;
+    const { loading } = this.state;
 
     return (
       <div className="App">
-        <header className="App-header">
-          <p>Word Search</p>
+        <div className="App-container">
+          <h1>Word Search</h1>
           <input
             type="text"
             name="search"
             value={this.state.search}
             onChange={this.handleChange}
+            placeholder="Search for a word"
           />
-          {data.length
-            ? data.map((word, i) => {
-                return <p key={i}>{word}</p>;
-              })
-            : null}
-
+          {this.renderResults()}
           {loading ? <p>Loading...</p> : null}
-        </header>
+        </div>
       </div>
     );
   }
